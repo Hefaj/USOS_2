@@ -25,8 +25,57 @@ void Subject::AddStudent(size_t id)
     oceny_.push_back(s);
 }
 
+void Subject::RemoveStudent(size_t id)
+{
+    for(auto s = oceny_.begin(); s != oceny_.end();)
+    {
+        if (s->ID() == id)
+        {
+            oceny_.erase(s);
+             cout << "Wypisano z przedmiotu." << endl << endl;
+            break;
+        }
+        s++;
+    }
+}
+
 void Subject::PrintStudents()
 {
     for (auto s:oceny_)
         s.Info();
+
+    cout << endl;
+}
+
+
+void Subject::PrintStudentGrade(size_t id)
+{
+    for (auto s:oceny_)
+    {
+        if (s.ID() == id)
+        {
+            cout << "ID przedmiotu: " << this->ID() << " : ";
+            //if (s.Grade()==0) cout << "Brak oceny"; 
+            //else cout << s.Grade();
+            cout << s.Grade(); 
+            cout << endl << endl;
+        }
+    }
+}
+
+
+void Subject::ChangeGrade(size_t id, int garde)
+{
+
+    for (size_t i = 0; i < oceny_.size(); i++)
+    {
+        if (oceny_[i].ID() == id)
+        {
+            cout << oceny_[i].Grade() << endl; 
+            oceny_[i].SetGrade(garde);
+            cout << oceny_[i].Grade() << endl;
+            
+            break;
+        }
+    }      
 }

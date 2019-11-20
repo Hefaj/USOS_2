@@ -12,7 +12,10 @@ class Subject
         int ocena_;
     public:
         Student_(size_t id) : id_Student(id), ocena_(0) {}
-        void Info() {cout << "ID: " << id_Student << ", Ocena: " << ocena_; }
+        void Info() {cout << "ID: " << id_Student << ", Ocena: " << ocena_ << endl; }
+        size_t ID() { return id_Student; }
+        int Grade() { return ocena_; }
+        void SetGrade(int val) { ocena_ = val; }
     };
 
     size_t id_; // id przedmiotu
@@ -26,8 +29,11 @@ public:
     size_t ID();
 
     void AddStudent(size_t); // dodawanie studenta do przedmiotu
-    // void RemoveStudent(size_t); // usuwanie studenta z przedmiotu
+    void RemoveStudent(size_t);
 
     void PrintStudents();
 
+    void PrintStudentGrade(size_t);
+
+    void ChangeGrade(size_t, int);
 };

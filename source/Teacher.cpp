@@ -18,8 +18,27 @@ void Teacher::Info()
 
 void Teacher::EditProf()
 {
-    //edycja
-    // co chcesz zmienic
-    // switch
-    // na co chcesz zmienic... itp
+    string s;
+
+    this->Info();
+
+    cout << "Podaj nowe imie:" << endl;
+    cin >> s;
+    this->name_ = s;
+    cout << "Podaj nowe nazwisko:" << endl;
+    cin >> s;
+    this->surname_ = s;
+
+    this->Info();
+}
+
+void Teacher::AddSubject(size_t id)
+{
+    przedmiot_id.push_back(id);
+}
+
+void Teacher::PrintSubject()
+{
+    for (auto s:przedmiot_id )
+        cout << "ID: " << s << ", [subject_name]" << endl << endl;
 }

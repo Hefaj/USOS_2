@@ -21,6 +21,8 @@ int ROOTView(USOS_2 &usos)
     size_t id;
     string name, surname;
 
+    Teacher *teacher;
+
     while(1)
     {
         cout << "(1) Dodaj nowego studenta" << endl;
@@ -33,7 +35,7 @@ int ROOTView(USOS_2 &usos)
 
         cout << "(7) Usuń studenta" << endl;
         cout << "(8) Usuń prowadzącego" << endl;
-        cout << "(9) Usuń przedmiot" << endl;
+        cout << "*(9) Usuń przedmiot" << endl;
 
         cout << "(x) Wybór profilu." << endl;
 
@@ -59,12 +61,10 @@ int ROOTView(USOS_2 &usos)
             case '3':
                 cout << "Podaj nazwe przedmiotu:" << endl;
                 cin >> name;
+                usos.PrintAllTeacher();
                 cout << "Podaj id prowadącego:" << endl;
                 cin >> id;
-                //if (IsNumber(id))
-                    usos.AddSubject(name,id);
-                //else
-                //    cout << "Niepoprawna forma id." << endl;
+                usos.AddSubject(name,id);
                 break;
             case '4':
                 usos.PrintAllStudent();
@@ -86,6 +86,7 @@ int ROOTView(USOS_2 &usos)
                 usos.RemoveTeacher(id);
                 break;
             case '9':
+                // przy usunieciu przedmiotu kazdy student ktory jest na niego zapiany musi tez go usunac
                 break;
             case 'x':
                 return 0;
@@ -104,6 +105,8 @@ int StudentView(USOS_2 &usos)
     Student *student;
     Subject *subject;
 
+    usos.PrintAllStudent();
+
     cout << "Podaj swoje id:" << endl;
     cin >> id;
 
@@ -120,8 +123,8 @@ int StudentView(USOS_2 &usos)
         cout << "(1) Pokaż moje dane." << endl;
         cout << "(2) Edytuj moje dane." << endl;
         cout << "(3) Zapisz się na przedmiot." << endl;
-        cout << "*(4) Wypisz się z przedmiotu" << endl;
-        cout << "*(5) Zobacz oceny" << endl;
+        cout << "(4) Wypisz się z przedmiotu" << endl;
+        cout << "(5) Zobacz oceny" << endl;
 
         cout << "(x) Wybór profilu." << endl;
 
@@ -154,10 +157,81 @@ int StudentView(USOS_2 &usos)
                 else cout << "Nie ma przedmiotu o takim id." << endl << endl;
                 break;
             case '4':
-                // wypisanie sie z przedmiotu
+                student->PrintAllSubject();
+
+                cout << "Podaj id przedmiotu, z którego chcesz się wypisać:" << endl;
+                cin >> id;
+
+                if (usos.IsSubject(id))
+                {
+                    // zaczepienie przedmiotu
+                    subject = usos.FindSubject(id);
+                    // usuniecie studenta do przedmiotu
+                    subject->RemoveStudent(student->ID());
+                    // usuniecie studentowi przedmiot
+                    student->RemoveSubject(id);
+                }
+                else cout << "Nie ma przedmiotu o takim id." << endl << endl;
+
                 break;
             case '5':
                 // wyswietlenie wszystkich przedmiotow z ocenami
+                usos.PrintStudentGrades(student->ID());
+
+                break;
+            case 'x':
+                return 0;
+        }
+    }
+}
+
+int TeacherView(USOS_2 usos)
+{
+    char o;
+    size_t id;
+
+    Teacher *teacher;
+    
+    usos.PrintAllTeacher();
+
+    cout << "Podaj swoje id:" << endl;
+    cin >> id;
+
+    if (usos.IsTeacher(id))
+        teacher = usos.FindTeacher(id);
+    else
+    {
+        cout << "Nie ma takiego prowadzącego." << endl << endl;
+        return 0;
+    }
+
+    while (1)
+    {
+        cout << "(1) Pokaż moje dane." << endl;
+        cout << "(2) Edytuj moje dane." << endl;
+        cout << "(3) Lista przedmiotów, które prowadzisz." << endl;
+        cout << "(4) Lista studentów." << endl;
+        cout << "(5) Wystaw ocene." << endl;
+        cout << "(x) Wybór profilu." << endl;
+
+        cin >> o;
+
+        switch (o)
+        {
+            case '1':
+                teacher->Info();
+                break;
+            case '2':
+                teacher->EditProf();
+                break;
+            case '3':
+                teacher->PrintSubject();
+                break;
+            case '4':
+                usos.PrintStudentSList(teacher);
+                break;
+            case '5':
+                usos.GetGrade(teacher);
                 break;
             case 'x':
                 return 0;
@@ -183,7 +257,7 @@ int main(int argc, char const *argv[])
         cout << "Wybierz profil, z którego chcesz korzystać:" << endl;
         cout << "(1) ROOT" << endl;
         cout << "(2) Student" << endl;
-        cout << "*(3) Prowadzący" << endl;
+        cout << "(3) Prowadzący" << endl;
         cout << "(x) Zakończ" << endl;
 
         cin >> o;
@@ -197,7 +271,7 @@ int main(int argc, char const *argv[])
                 StudentView(usos);
                 break;
             case '3':
-                //TeacherView(usos);
+                TeacherView(usos);
                 break;
             case 'x':
                 return 0;
@@ -205,8 +279,6 @@ int main(int argc, char const *argv[])
                 break;
         }
     }
-
-
 
     return 0;
 }

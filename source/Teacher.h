@@ -17,8 +17,10 @@ public:
     virtual void Info();
     virtual void EditProf();
 
-    // lista prowadzonych przedmiotow
+    void AddSubject(size_t);
+
+    void PrintSubject();
+
     // lista studentow na danym przedmiocie z ich ocenami jezeli je prowadzi // moze to w przedmiocie
-    // prowadzone przedmioty
     // wystawianie ocen // moze to w przedmiocie
 };

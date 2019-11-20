@@ -17,12 +17,11 @@ class USOS_2
 public:
 
     void AddStudent(string, string);
-    void RemoveStudent(size_t);
-
     void AddTeacher(string, string);
-    void RemoveTeacher(size_t);
-
     void AddSubject(string, size_t);
+
+    void RemoveStudent(size_t);
+    void RemoveTeacher(size_t);
     void RemoveSubject(size_t);
 
     void PrintAllStudent();
@@ -35,6 +34,9 @@ public:
 
     Student* FindStudent(size_t);
     Subject* FindSubject(size_t);
-    // wyswietl wszystkie przedmioty id studenta
-    // wyswietl wszystkie przedmioty prowadzone przez id prowadzacy
+    Teacher* FindTeacher(size_t);
+
+    void PrintStudentGrades(size_t);
+    void PrintStudentSList(Teacher*);
+    void GetGrade(Teacher*);
 };

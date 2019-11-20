@@ -9,6 +9,33 @@ void USOS_2::AddStudent(string name, string surname)
     s.Info();
 }
 
+void USOS_2::AddTeacher(string name, string surname)
+{
+    Teacher t(teachers.size(), name, surname);
+    teachers.push_back(t);
+    cout << "Prowadzący dodany pomyślnie:" << endl << endl;
+
+    t.Info();
+}
+
+void USOS_2::AddSubject(string name, size_t id_teacher)
+{
+    Teacher* teacher;
+    // czy taki nauczycil istnije?
+    if (IsTeacher(id_teacher))
+    {
+        Subject t(subjects.size(), name, id_teacher);
+        subjects.push_back(t);
+
+        teacher = FindTeacher(id_teacher);
+        teacher->AddSubject(t.ID());
+        cout << "Przedmiot dodany pomyślnie:" << endl << endl;
+        t.Info();
+    }
+    else
+        cout << "Niepoprawne id prowadzącego" << endl << endl;
+}
+
 void USOS_2::RemoveStudent(size_t id)
 {
     for(auto s = students.begin(); s != students.end();)
@@ -51,22 +78,12 @@ void USOS_2::RemoveSubject(size_t id)
         {
             s->Info();
             subjects.erase(s);
-             cout << "Przedmiot pomyślnie usunięty." << endl << endl;
             break;
         }
         s++;
     }
 
     cout << "Nie znaleziono takiego id." << endl;
-}
-
-void USOS_2::AddTeacher(string name, string surname)
-{
-    Teacher t(teachers.size(), name, surname);
-    teachers.push_back(t);
-    cout << "Prowadzący dodany pomyślnie:" << endl << endl;
-
-    t.Info();
 }
 
 bool USOS_2::IsTeacher(size_t id)
@@ -90,30 +107,25 @@ bool USOS_2::IsSubject(size_t id)
     return false;
 }
 
+Teacher* USOS_2::FindTeacher(size_t id)
+{
+    for (size_t i = 0; i < teachers.size(); i++)
+        if (teachers[i].ID() == id) return &teachers[i];
+    return &teachers[0];
+}
+
 Student* USOS_2::FindStudent(size_t id)
 {
     for (size_t i = 0; i < students.size(); i++)
         if (students[i].ID() == id) return &students[i];
+    return &students[0];
 }
 
 Subject* USOS_2::FindSubject(size_t id)
 {
     for (size_t i = 0; i < subjects.size(); i++)
         if (subjects[i].ID() == id) return &subjects[i];
-}
-
-void USOS_2::AddSubject(string name, size_t id_teacher)
-{
-    // czy taki nauczycil istnije?
-    if (IsTeacher(id_teacher))
-    {
-        Subject t(subjects.size(), name, id_teacher);
-        subjects.push_back(t);
-        cout << "Przedmiot dodany pomyślnie:" << endl << endl;
-        t.Info();
-    }
-    else
-        cout << "Niepoprawne id prowadzącego" << endl << endl;
+    return &subjects[0];
 }
 
 void USOS_2::PrintAllStudent()
@@ -138,4 +150,47 @@ void USOS_2::PrintAllSubject()
 
     for (auto s:subjects)
         s.Info();
+}
+
+void USOS_2::PrintStudentGrades(size_t id)
+{
+    for (auto s:subjects)
+        s.PrintStudentGrade(id);  
+}
+
+void USOS_2::PrintStudentSList(Teacher *teacher)
+{
+    size_t id;
+    Subject *subject;
+
+    teacher->PrintSubject();
+    cout << "Wybierz id przemiotu" << endl;
+    cin >> id;
+
+    subject = FindSubject(id);
+    subject->PrintStudents();
+}
+
+void USOS_2::GetGrade(Teacher *teacher)
+{
+    size_t id, id_;
+    Subject *subject;
+    int grade;
+
+    teacher->PrintSubject();
+    cout << "Wybierz id przemiotu" << endl;
+    cin >> id;
+
+    subject = FindSubject(id);
+    subject->PrintStudents();
+
+    cout << "Wybierz id studenta:" << endl;
+    cin >> id_;
+    if (IsStudent(id_))
+    {
+        cout << "Podaj ocene:" << endl;
+        cin >> grade;
+        subject->ChangeGrade(id_, grade);
+    }
+    else cout << "Niepoprawne id studenta." << endl << endl;   
 }

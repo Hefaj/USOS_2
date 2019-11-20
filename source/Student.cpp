@@ -33,5 +33,25 @@ void Student::EditProf()
 
 void Student::AddSubject(size_t id)
 {
-    przedmiot_id.push_back(id);
+    lista_przed.push_back(id);
+}
+
+void Student::RemoveSubject(size_t id)
+{
+    for( size_t i = 0; i<lista_przed.size();i++)
+    {
+        if (lista_przed[i] == id)
+        {
+            lista_przed.erase(lista_przed.begin()+i);
+             cout << "Przedmiot pomyślnie usunięty." << endl << endl;
+            break;
+        }
+    }
+    cout << "Nie znaleziono takiego id." << endl << endl;
+}
+
+void Student::PrintAllSubject()
+{
+    for (auto s:lista_przed)
+        cout << "ID: " << s << ", [subject_name]" << endl;
 }

@@ -10,7 +10,7 @@ using namespace std;
 
 class Student : public Person, APerson
 {
-    std::vector<size_t> przedmiot_id; // przedmiotu studenta
+    std::vector<size_t> lista_przed; // przedmioty studenta
 
 public:
     Student(int, string, string);
@@ -18,6 +18,9 @@ public:
     virtual void EditProf();
 
     void AddSubject(size_t);
+	void RemoveSubject(size_t);
+
+    void PrintAllSubject();
 
     // lista przedmiotow na ktore chodzi z ocenami
 };
