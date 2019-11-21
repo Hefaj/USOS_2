@@ -11,9 +11,9 @@ using namespace std;
 class Student : public Person, APerson
 {
     std::vector<size_t> lista_przed; // przedmioty studenta
-
 public:
     Student(int, string, string);
+
     virtual void Info();
     virtual void EditProf();
 

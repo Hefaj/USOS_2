@@ -18,6 +18,7 @@ public:
     virtual void EditProf();
 
     void AddSubject(size_t);
+    void RemoveSubject(size_t);
 
     void PrintSubject();
 

@@ -4,18 +4,25 @@
 
 using namespace std;
 
-
 class Subject
 {
     class Student_{
-        size_t id_Student;
-        int ocena_;
-    public:
-        Student_(size_t id) : id_Student(id), ocena_(0) {}
-        void Info() {cout << "ID: " << id_Student << ", Ocena: " << ocena_ << endl; }
-        size_t ID() { return id_Student; }
-        int Grade() { return ocena_; }
-        void SetGrade(int val) { ocena_ = val; }
+            size_t id_Student;
+            int ocena_;
+        public:
+            Student_(size_t id) : id_Student(id), ocena_(0) {}
+            void Info()
+            {
+                cout.width(12);
+                cout << left << "ID:";
+                cout << "[subject_name]";
+                cout.width(12);
+                cout << ", Ocena:";
+                cout << ocena_ << endl;
+            }
+            size_t ID() { return id_Student; }
+            int Grade() { return ocena_; }
+            void SetGrade(int val) { this->ocena_ = val; }
     };
 
     size_t id_; // id przedmiotu

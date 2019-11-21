@@ -7,13 +7,13 @@ void Subject::Info()
 {
 
     cout << "ID:";
-    cout.width(10);
+    cout.width(11);
     cout << id_ << endl;
     cout << "Prowadzacy:";
     cout.width(3);
     cout << id_Teacher_ << endl;
     cout << "Nazwa:";
-    cout.width(7);
+    cout.width(9);
     cout << name_ << endl << endl;
 }
 
@@ -51,16 +51,8 @@ void Subject::PrintStudents()
 void Subject::PrintStudentGrade(size_t id)
 {
     for (auto s:oceny_)
-    {
         if (s.ID() == id)
-        {
-            cout << "ID przedmiotu: " << this->ID() << " : ";
-            //if (s.Grade()==0) cout << "Brak oceny"; 
-            //else cout << s.Grade();
-            cout << s.Grade(); 
-            cout << endl << endl;
-        }
-    }
+            s.Info();
 }
 
 
@@ -71,11 +63,9 @@ void Subject::ChangeGrade(size_t id, int garde)
     {
         if (oceny_[i].ID() == id)
         {
-            cout << oceny_[i].Grade() << endl; 
             oceny_[i].SetGrade(garde);
-            cout << oceny_[i].Grade() << endl;
-            
             break;
         }
-    }      
+    }
 }
+

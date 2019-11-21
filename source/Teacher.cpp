@@ -4,15 +4,15 @@ Teacher::Teacher(int id, string name, string surname) : Person(id, name, surname
 
 void Teacher::Info()
 {
-
-    cout << "ID:";
-    cout.width(8);
+    cout.width(12);
+    cout << left << "ID:";
+    cout.width(12);
     cout << id_ << endl;
     cout << "Imię:";
-    cout.width(6);
+    cout.width(12);
     cout << name_ << endl;
     cout << "Nazwisko:";
-    cout.width(2);
+    cout.width(12);
     cout << surname_ << endl << endl;
 }
 
@@ -35,6 +35,19 @@ void Teacher::EditProf()
 void Teacher::AddSubject(size_t id)
 {
     przedmiot_id.push_back(id);
+}
+
+void Teacher::RemoveSubject(size_t id)
+{
+    for( size_t i = 0; i<przedmiot_id.size();i++)
+    {
+        if (przedmiot_id[i] == id)
+        {
+            przedmiot_id.erase(przedmiot_id.begin()+i);
+            break;
+        }
+    }
+    cout << "Nie znaleziono takiego id." << endl << endl;
 }
 
 void Teacher::PrintSubject()

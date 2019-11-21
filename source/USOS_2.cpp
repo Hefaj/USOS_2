@@ -50,7 +50,7 @@ void USOS_2::RemoveStudent(size_t id)
         s++;
     }
 
-    cout << "Nie znaleziono takiego id." << endl;
+    //cout << "Nie znaleziono takiego id." << endl;
 }
 
 void USOS_2::RemoveTeacher(size_t id)
@@ -67,7 +67,7 @@ void USOS_2::RemoveTeacher(size_t id)
         s++;
     }
 
-    cout << "Nie znaleziono takiego id." << endl;
+    //cout << "Nie znaleziono takiego id." << endl;
 }
 
 void USOS_2::RemoveSubject(size_t id)
@@ -78,12 +78,21 @@ void USOS_2::RemoveSubject(size_t id)
         {
             s->Info();
             subjects.erase(s);
+            cout << "Przemiot został usuiety." << endl;
             break;
         }
         s++;
     }
 
-    cout << "Nie znaleziono takiego id." << endl;
+    for (auto i = students.begin(); i != students.end(); ++i)
+        i->RemoveSubject(id);
+
+
+    for (auto i = teachers.begin(); i != teachers.end(); ++i)
+        i->RemoveSubject(id);
+
+
+    //cout << "Nie znaleziono przemiotu o takim id." << endl;
 }
 
 bool USOS_2::IsTeacher(size_t id)
@@ -155,7 +164,8 @@ void USOS_2::PrintAllSubject()
 void USOS_2::PrintStudentGrades(size_t id)
 {
     for (auto s:subjects)
-        s.PrintStudentGrade(id);  
+        s.PrintStudentGrade(id);
+    cout << endl;
 }
 
 void USOS_2::PrintStudentSList(Teacher *teacher)
@@ -192,5 +202,5 @@ void USOS_2::GetGrade(Teacher *teacher)
         cin >> grade;
         subject->ChangeGrade(id_, grade);
     }
-    else cout << "Niepoprawne id studenta." << endl << endl;   
+    else cout << "Niepoprawne id studenta." << endl << endl;
 }

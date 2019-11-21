@@ -4,14 +4,15 @@ Student::Student(int id, string name, string surname) : Person(id, name, surname
 
 void Student::Info()
 {
-    cout << "ID:";
-    cout.width(8);
+    cout.width(12);
+    cout << left << "ID:";
+    cout.width(12);
     cout << id_ << endl;
     cout << "Imię:";
-    cout.width(6);
+    cout.width(12);
     cout << name_ << endl;
     cout << "Nazwisko:";
-    cout.width(2);
+    cout.width(12);
     cout << surname_ << endl << endl;
 }
 
@@ -43,7 +44,7 @@ void Student::RemoveSubject(size_t id)
         if (lista_przed[i] == id)
         {
             lista_przed.erase(lista_przed.begin()+i);
-             cout << "Przedmiot pomyślnie usunięty." << endl << endl;
+            cout << "Przedmiot pomyślnie usunięty." << endl << endl;
             break;
         }
     }

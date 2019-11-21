@@ -35,7 +35,7 @@ int ROOTView(USOS_2 &usos)
 
         cout << "(7) Usuń studenta" << endl;
         cout << "(8) Usuń prowadzącego" << endl;
-        cout << "*(9) Usuń przedmiot" << endl;
+        cout << "(9) Usuń przedmiot" << endl;
 
         cout << "(x) Wybór profilu." << endl;
 
@@ -86,6 +86,10 @@ int ROOTView(USOS_2 &usos)
                 usos.RemoveTeacher(id);
                 break;
             case '9':
+                usos.PrintAllSubject();
+                cout << "Podaj id przedmiotu:" << endl;
+                cin >> id;
+                usos.RemoveSubject(id);
                 // przy usunieciu przedmiotu kazdy student ktory jest na niego zapiany musi tez go usunac
                 break;
             case 'x':
@@ -175,7 +179,6 @@ int StudentView(USOS_2 &usos)
 
                 break;
             case '5':
-                // wyswietlenie wszystkich przedmiotow z ocenami
                 usos.PrintStudentGrades(student->ID());
 
                 break;
@@ -185,13 +188,13 @@ int StudentView(USOS_2 &usos)
     }
 }
 
-int TeacherView(USOS_2 usos)
+int TeacherView(USOS_2 &usos)
 {
     char o;
     size_t id;
 
     Teacher *teacher;
-    
+
     usos.PrintAllTeacher();
 
     cout << "Podaj swoje id:" << endl;
