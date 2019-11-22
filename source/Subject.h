@@ -2,6 +2,8 @@
 #include <iostream>
 #include <vector>
 
+#include <sstream>
+
 using namespace std;
 
 class Subject
@@ -11,11 +13,12 @@ class Subject
             int ocena_;
         public:
             Student_(size_t id) : id_Student(id), ocena_(0) {}
+            Student_(size_t id, int g) : id_Student(id), ocena_(g) {}
             void Info()
             {
                 cout.width(12);
                 cout << left << "ID:";
-                cout << "[subject_name]";
+                cout << id_Student;
                 cout.width(12);
                 cout << ", Ocena:";
                 cout << ocena_ << endl;
@@ -32,8 +35,12 @@ class Subject
 
 public:
     Subject(int, string, size_t);
+    Subject(int, string, size_t, string);
+
     void Info();
     size_t ID();
+    string NAME();
+    size_t ID_Teacher();
 
     void AddStudent(size_t); // dodawanie studenta do przedmiotu
     void RemoveStudent(size_t);
@@ -43,4 +50,6 @@ public:
     void PrintStudentGrade(size_t);
 
     void ChangeGrade(size_t, int);
+
+    string StringAllStudents();
 };

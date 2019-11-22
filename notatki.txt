@@ -1,0 +1,77 @@
+**************
+*** USOS_2 ***
+**************
+
+Wymagania Pana Profesora:
+    * Muszą być klasy:
+        - Student
+        - Teacher
+        - Subject
+    * System migracni czyli zapis/odczyt do/z pliku
+    * System wyciągania relacji
+
+Klasa główna:
+
+    Klasa USOS_2:
+        (Z[]) Lista studentów
+        (Z[]) Lista prowadzących
+        (Z[]) Lista przedmiotów
+
+        (F) Dodawanie nowych studentów
+        (F) Dodawanie nowych prowadzących+
+        (F) Dodawanie nowych przedmiotów
+        (F) Usuwanie istniejących studentów
+        (F) Usuwanie istniejących prowadzących
+        (F) Usuwanie istniejących przedmiotów
+        (F) Migracja czyli odczyt/zapis z/do pliku
+        (F) Dodanie prowadzącego do przedmiotu
+
+Klasy Podstawowe:
+    Klasa Student:
+        (Z|OR)ID_Studenta
+        (Z|OR)Imie
+        (Z|OR)Nazwisko
+        (Z[])Lista Przedmiotów, na które chodzi
+
+        (F) Student może zapisać się na przedmiot
+        (F) Student może wypisać się z przedmiotu
+        (F) Student może edytować swoje dane
+        (F|OR) Wyświetlanie danych
+        (F) Wyświetlanie przedmiotow i ocen
+
+    Klasa Teacher:
+        (Z|OR)ID_Prowadzącego
+        (Z|OR)Imie
+        (Z|OR)Nazwisko
+        (Z[])Lista Przedmiotów, które prowadzi
+
+        (F) Prowadzący może edytować swoje dane
+        (F) Wystawienie oceny studentowi z prowadzonego przedmiotu
+        (F|OR) Wyświetlanie danych
+
+    Klasa Subject:
+        (Z) ID_Przedmiotu
+        (Z) Nazwa_Przedmiotu
+        (Z) Prowadzacy
+        (Z[]) Lista Studentów
+        (Z[]) Lista ocen
+
+        (F) Wyświetlenie Prowadzacego
+        (F) Wyświetlenie Studentów
+
+Klasy baza:
+    Klasa Person:
+        (Z) ID
+        (Z) imie
+        (Z) nazwisko
+
+Klasy abstrakcyjne:
+    Klasa APerson:
+        (F|W) Wyświetlanie danych
+        (F|W) Edycja danych
+
+
+Interfejsy:
+    ROOT
+    Student
+    Prowadzący

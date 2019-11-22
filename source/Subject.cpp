@@ -2,6 +2,20 @@
 
 Subject::Subject(int id, string name, size_t id_teacher) : id_(id), name_(name), id_Teacher_(id_teacher) {}
 
+Subject::Subject(int id, string name, size_t id_teacher, string str) : id_(id), name_(name), id_Teacher_(id_teacher)
+{
+    stringstream iss(str);
+
+    size_t _id;
+    int ocena;
+
+    while ( iss >> _id >> ocena )
+        {
+            Student_ s_(_id, ocena);
+            oceny_.push_back(s_);
+        }
+}
+
 
 void Subject::Info()
 {
@@ -18,6 +32,8 @@ void Subject::Info()
 }
 
 size_t Subject::ID(){ return id_; }
+string Subject::NAME() {return name_; }
+size_t Subject::ID_Teacher(){return id_Teacher_; }
 
 void Subject::AddStudent(size_t id)
 {
@@ -52,7 +68,15 @@ void Subject::PrintStudentGrade(size_t id)
 {
     for (auto s:oceny_)
         if (s.ID() == id)
-            s.Info();
+        {
+            //s.Info();
+            cout.width(12);
+            cout << left << "Nazwa:";
+            cout << name_;
+            cout.width(12);
+            cout << ", Ocena:";
+            cout << s.Grade() << endl;
+        }
 }
 
 
@@ -69,3 +93,13 @@ void Subject::ChangeGrade(size_t id, int garde)
     }
 }
 
+string Subject::StringAllStudents()
+{
+    string s_ = "";
+
+    for (auto s:oceny_)
+    {
+        s_ += " " + to_string(s.ID()) + " " + to_string(s.Grade());
+    }
+    return s_;
+}

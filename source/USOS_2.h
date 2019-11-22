@@ -2,6 +2,9 @@
 #include <vector>
 #include <string>
 
+#include <fstream>
+#include <sstream>
+
 #include "Student.h"
 #include "Teacher.h"
 #include "Subject.h"
@@ -15,6 +18,10 @@ class USOS_2
     std::vector<Subject> subjects;
 
 public:
+
+    USOS_2();
+    ~USOS_2();
+
 
     void AddStudent(string, string);
     void AddTeacher(string, string);
@@ -39,4 +46,9 @@ public:
     void PrintStudentGrades(size_t);
     void PrintStudentSList(Teacher*);
     void GetGrade(Teacher*);
+
+    void PrintSubjects(size_t);
+
+    void Migration();
+    void Save();
 };

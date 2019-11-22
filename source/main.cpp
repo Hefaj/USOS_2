@@ -10,6 +10,7 @@
 */
 
 #include <iostream>
+#include <limits>
 
 #include "USOS_2.h"
 
@@ -45,22 +46,28 @@ int ROOTView(USOS_2 &usos)
         {
             case '1':
                 cout << "Podaj imię studenta:" << endl;
-                cin >> name;
+                std::cin.ignore( std::numeric_limits < std::streamsize >::max(), '\n' );
+                std::getline( std::cin, name );
                 cout << "Podaj nazwisko studenta:" << endl;
-                cin >> surname;
+                std::cin.ignore( std::numeric_limits < std::streamsize >::max(), '\n' );
+                std::getline( std::cin, surname );
                 usos.AddStudent(name,surname);
 
                 break;
             case '2':
                 cout << "Podaj imię prowadzącego:" << endl;
-                cin >> name;
+                std::cin.ignore( std::numeric_limits < std::streamsize >::max(), '\n' );
+                std::getline( std::cin, name );
                 cout << "Podaj nazwisko prowadzącego:" << endl;
+                std::cin.ignore( std::numeric_limits < std::streamsize >::max(), '\n' );
+                std::getline( std::cin, surname );
                 cin >> surname;
                 usos.AddTeacher(name,surname);
                 break;
             case '3':
                 cout << "Podaj nazwe przedmiotu:" << endl;
-                cin >> name;
+                std::cin.ignore( std::numeric_limits < std::streamsize >::max(), '\n' );
+                std::getline( std::cin, name );
                 usos.PrintAllTeacher();
                 cout << "Podaj id prowadącego:" << endl;
                 cin >> id;
@@ -90,7 +97,6 @@ int ROOTView(USOS_2 &usos)
                 cout << "Podaj id przedmiotu:" << endl;
                 cin >> id;
                 usos.RemoveSubject(id);
-                // przy usunieciu przedmiotu kazdy student ktory jest na niego zapiany musi tez go usunac
                 break;
             case 'x':
                 return 0;
@@ -228,7 +234,8 @@ int TeacherView(USOS_2 &usos)
                 teacher->EditProf();
                 break;
             case '3':
-                teacher->PrintSubject();
+                //teacher->PrintSubject();
+            usos.PrintSubjects(teacher->ID());
                 break;
             case '4':
                 usos.PrintStudentSList(teacher);

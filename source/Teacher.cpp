@@ -1,6 +1,9 @@
 #include "Teacher.h"
 
 Teacher::Teacher(int id, string name, string surname) : Person(id, name, surname) {}
+Teacher::Teacher(int id, string name, string surname, vector<size_t> v) : Person(id, name, surname), przedmiot_id(v) {}
+
+
 
 void Teacher::Info()
 {
@@ -50,8 +53,13 @@ void Teacher::RemoveSubject(size_t id)
     cout << "Nie znaleziono takiego id." << endl << endl;
 }
 
-void Teacher::PrintSubject()
+
+
+string Teacher::StringAllSubject()
 {
-    for (auto s:przedmiot_id )
-        cout << "ID: " << s << ", [subject_name]" << endl << endl;
+    string s = "";
+
+    for (auto o:przedmiot_id)
+       s +=  " " + to_string(o);
+   return s;
 }

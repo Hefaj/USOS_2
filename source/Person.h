@@ -12,4 +12,6 @@ protected:
 public:
     Person(size_t, string, string);
     size_t ID();
+    string NAME();
+    string SURNAME();
 };

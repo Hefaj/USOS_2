@@ -1,5 +1,17 @@
 #include "USOS_2.h"
 
+USOS_2::USOS_2()
+{
+    Migration();
+}
+
+
+USOS_2::~USOS_2()
+{
+    Save();
+}
+
+
 void USOS_2::AddStudent(string name, string surname)
 {
     Student s(students.size(), name, surname);
@@ -168,12 +180,22 @@ void USOS_2::PrintStudentGrades(size_t id)
     cout << endl;
 }
 
+void USOS_2::PrintSubjects(size_t id)
+{
+    for (auto s:subjects)
+    {
+        if (s.ID() == id)
+            cout << "ID: " << s.ID() << ", " << s.NAME() << endl << endl;
+    }
+}
+
 void USOS_2::PrintStudentSList(Teacher *teacher)
 {
     size_t id;
     Subject *subject;
 
-    teacher->PrintSubject();
+    //teacher->PrintSubject();
+    PrintSubjects(teacher->ID());
     cout << "Wybierz id przemiotu" << endl;
     cin >> id;
 
@@ -187,7 +209,7 @@ void USOS_2::GetGrade(Teacher *teacher)
     Subject *subject;
     int grade;
 
-    teacher->PrintSubject();
+    PrintSubjects(teacher->ID());
     cout << "Wybierz id przemiotu" << endl;
     cin >> id;
 
@@ -204,3 +226,162 @@ void USOS_2::GetGrade(Teacher *teacher)
     }
     else cout << "Niepoprawne id studenta." << endl << endl;
 }
+
+void USOS_2::Migration()
+{
+    string name_file = "db/Student.txt";
+    string name, surname;
+    size_t id;
+
+    string line;
+    string znak = "*";
+
+    ifstream file (name_file);
+    if (file.is_open())
+    {
+        while ( getline (file,line) )
+        {
+            size_t pos;
+
+            pos = line.find(znak);
+            id = stoi(line.substr(0, pos));
+            line.erase(0, pos+1);
+
+            pos = line.find(znak);
+            name = line.substr(0, pos);
+            line.erase(0, pos+1);
+
+            pos = line.find(znak);
+            surname = line.substr(0, pos);
+            line.erase(0, pos+2);
+
+            stringstream iss(line);
+            size_t number;
+            vector<size_t> Numbers;
+            while ( iss >> number )
+                Numbers.push_back(number);
+
+            Student s(id, name, surname, Numbers);
+            students.push_back(s);
+        }
+
+        file.close();
+    }
+    else cout << "Nie mogę dorwać się do " << name_file  << endl;
+
+    name_file = "db/Teacher.txt";
+
+    file.open(name_file);
+
+    if (file.is_open())
+    {
+        while ( getline (file,line) )
+        {
+            size_t pos;
+
+            pos = line.find(znak);
+            id = stoi(line.substr(0, pos));
+            line.erase(0, pos+1);
+
+            pos = line.find(znak);
+            name = line.substr(0, pos);
+            line.erase(0, pos+1);
+
+            pos = line.find(znak);
+            surname = line.substr(0, pos);
+            line.erase(0, pos+1);
+
+            stringstream iss(line);
+            size_t number;
+            vector<size_t> Numbers;
+            while ( iss >> number )
+                Numbers.push_back(number);
+
+            Teacher t(id, name, surname, Numbers);
+            teachers.push_back(t);
+        }
+        file.close();
+    }
+    else cout << "Nie mogę dorwać się do " << name_file  << endl;
+
+
+    name_file = "db/Subject.txt";
+
+    file.open(name_file);
+    if (file.is_open())
+    {
+        while ( getline (file,line) )
+        {
+            size_t pos;
+            size_t id_t;
+
+            pos = line.find(znak);
+            id = stoi(line.substr(0, pos));
+            line.erase(0, pos+1);
+
+            pos = line.find(znak);
+            name = line.substr(0, pos);
+            line.erase(0, pos+1);
+
+            pos = line.find(znak);
+            id_t = stoi(line.substr(0, pos));
+            line.erase(0, pos+1);
+
+
+            Subject s(id, name, id_t, line);
+            subjects.push_back(s);
+        }
+        file.close();
+    }
+    else cout << "Nie mogę dorwać się do " << name_file  << endl;
+}
+
+void USOS_2::Save()
+{
+    string name_file = "db/Student.txt";
+
+    ofstream file (name_file);
+    if (file.is_open())
+    {
+        for (auto s:students)
+        {
+            file << s.ID() << "*" << s.NAME() << "*" << s.SURNAME() << "*";
+            file << s.StringAllSubject() << "\n";
+        }
+
+        file.close();
+    }
+    else cout << "Nie mogę dorwać się do " << name_file  << endl;
+
+    name_file = "db/Teacher.txt";
+
+    file.open(name_file);
+    if (file.is_open())
+    {
+        for (auto s:teachers)
+        {
+            file << s.ID() << "*" << s.NAME() << "*" << s.SURNAME()  << "*";
+            file << s.StringAllSubject() << "\n";
+        }
+
+        file.close();
+    }
+    else cout << "Nie mogę dorwać się do " << name_file  << endl;
+
+    name_file = "db/Subject.txt";
+
+    file.open(name_file);
+    if (file.is_open())
+    {
+        for (auto s:subjects)
+        {
+            file << s.ID() << "*" << s.NAME() << "*" << s.ID_Teacher() << "*";
+            file << s.StringAllStudents() << "\n";
+        }
+
+        file.close();
+    }
+    else cout << "Nie mogę dorwać się do " << name_file  << endl;
+
+}
+
