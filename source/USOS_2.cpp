@@ -382,6 +382,5 @@ void USOS_2::Save()
         file.close();
     }
     else cout << "Nie mogę dorwać się do " << name_file  << endl;
-
 }
 

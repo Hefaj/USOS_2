@@ -1,13 +1,5 @@
-// Kiedy pisałem ten kod to tylko ja i Bóg wiedział jak on działa.
+// Kiedy pisałem ten kod, to tylko ja i Bóg wiedział jak on działa.
 // Teraz tylko Bóg wie.
-
-/*
-    Fix:
-        - zmienic przyznawanie id, id daje na podstawie ilosci utworzonych obiektow
-            jezeli usunie sie np 3 a sa 4, to dodanie nowego przypisze id = 3 gdzie czwarty ma id = 3
-        rozwiązanie: odczytac id ostatniego i dodac jeden
-            wada: id są unikalne i raz uzyty nawet po usunieciu obiektu nigdy sie nie pojawi jako nowe id
-*/
 
 #include <iostream>
 #include <limits>
